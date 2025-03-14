@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Compression Options{% endblock %}
+
+{% block content %}
+<section class="compression-options">
+    <h1>Choose Your Compression Method</h1>
+    <ul>
+        <li><a href="{{ url_for('single_compression') }}">Single Image Compression</a></li>
+        <li><a href="{{ url_for('multiple_compression') }}">Multiple Image Compression</a></li>
+        <li><a href="{{ url_for('video_compression') }}">Video Compression</a></li>
+    </ul>
+</section>
+{% endblock %}
