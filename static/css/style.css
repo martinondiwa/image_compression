@@ -1,45 +1,174 @@
+/* =============================
+   Global Styles
+   ============================= */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --dark-bg: #121212;
+    --light-bg: #f4f4f4;
+    --text-color: #fff;
+    --shadow: rgba(0, 0, 0, 0.2);
+    --border-radius: 8px;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* =============================
+   Navbar
+   ============================= */
+.navbar {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    padding: 15px 20px;
     text-align: center;
-    margin: 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 4px 10px var(--shadow);
+    z-index: 1000;
 }
 
-h2 {
-    color: #333;
+.navbar a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 15px;
+    transition: color 0.3s ease-in-out;
 }
 
+.navbar a:hover {
+    color: #ffcc00;
+}
+
+/* =============================
+   Section Styles
+   ============================= */
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+/* =============================
+   Form Styling
+   ============================= */
 form {
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    box-shadow: 0 0 10px var(--shadow);
+    transition: transform 0.3s ease-in-out;
+}
+
+form:hover {
+    transform: scale(1.02);
+}
+
+input[type="file"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    background: var(--light-bg);
+    border-radius: var(--border-radius);
+    border: none;
+    font-size: 16px;
 }
 
 button {
-    background-color: blue;
-    color: white;
+    background: var(--primary-color);
+    color: var(--text-color);
     border: none;
-    padding: 10px;
+    padding: 12px 20px;
+    font-size: 18px;
     cursor: pointer;
-    margin-top: 10px;
+    border-radius: var(--border-radius);
+    transition: background 0.3s ease-in-out, transform 0.2s;
 }
 
 button:hover {
-    background-color: darkblue;
+    background: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
-label {
-    margin-top: 10px;
-}
-
-input, select {
-    padding: 5px;
-    margin: 5px;
-}
-
-#downloadLink {
-    font-size: 18px;
-    color: green;
+/* =============================
+   Results Section
+   ============================= */
+.result {
+    display: none;
     margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 10px var(--shadow);
+    transition: opacity 0.5s ease-in-out;
+}
+
+.result p {
+    font-size: 1.1rem;
+    color: #ffcc00;
+}
+
+.result a {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #28a745;
+    color: white;
     text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: background 0.3s ease-in-out;
+}
+
+.result a:hover {
+    background: #218838;
+}
+
+/* =============================
+   Loader Animation
+   ============================= */
+.loader {
+    display: none;
+    margin: 20px auto;
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--light-bg);
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* =============================
+   Responsive Design
+   ============================= */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    button {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
 }
