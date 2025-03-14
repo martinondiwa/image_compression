@@ -1,2 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compression</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h2>Upload an Image for Compression</h2>
+    
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="image" id="imageInput" required>
+
+        <label for="quality">Compression Quality (1-100):</label>
+        <input type="number" id="quality" name="quality" min="1" max="100" value="40">
+        
+        <label for="format">Select Output Format:</label>
+        <select id="format" name="format">
+            <option value="JPEG">JPEG</option>
+            <option value="PNG">PNG</option>
+            <option value="WEBP">WEBP</option>
+        </select>
+
+        <button type="submit">Compress Image</button>
+    </form>
+
+    <h3>Compressed Image:</h3>
+    <a id="downloadLink" href="#" style="display: none;" download>Download Compressed Image</a>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
 
 
