@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Multiple Image Compression{% endblock %}
+
+{% block content %}
+<section class="compression-section">
+    <h1>Multiple Images Compression</h1>
+    <p>Select multiple images to compress and download them in a ZIP file.</p>
+
+    <form id="multiUploadForm" enctype="multipart/form-data">
+        <input type="file" id="multiImages" name="images" accept="image/*" multiple required>
+        <button type="submit">Compress Images</button>
+    </form>
+
+    <div id="multiResult" class="result hidden">
+        <p>Compression successful! Download your ZIP file below:</p>
+        <a id="downloadMulti" href="#" download>Download Compressed Images</a>
+    </div>
+</section>
+{% endblock %}
