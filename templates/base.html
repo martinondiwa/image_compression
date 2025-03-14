@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Image Compression{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Image Compressor</div>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li class="dropdown">
+                <a href="#">Compression ▼</a>
+                <div class="dropdown-menu">
+                    <a href="{{ url_for('single_compression') }}">Single Image Compression</a>
+                    <a href="{{ url_for('multiple_compression') }}">Multiple Image Compression</a>
+                    <a href="{{ url_for('video_compression') }}">Video Compression</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>© 2024 Image Compressor. Follow us: 
+            <a href="#">Facebook</a> | 
+            <a href="#">Twitter</a> | 
+            <a href="#">Instagram</a>
+        </p>
+    </footer>
+</body>
+</html>
