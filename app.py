@@ -1,61 +1,82 @@
-from flask import Flask, render_template, request, send_from_directory
-from PIL import Image
+from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
+from PIL import Image
+import zipfile
+import cv2
+from moviepy.editor import VideoFileClip
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = "uploads"
-COMPRESSED_FOLDER = "compressed"
+UPLOAD_FOLDER = 'uploads'
+COMPRESSED_FOLDER = 'compressed'
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(COMPRESSED_FOLDER, exist_ok=True)
 
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-app.config["COMPRESSED_FOLDER"] = COMPRESSED_FOLDER
+@app.route('/')
+def home():
+    return render_template('index.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.route('/compression/single')
+def single_compression():
+    return render_template('single_compression.html')
 
+@app.route('/compression/multiple')
+def multiple_compression():
+    return render_template('multiple_compression.html')
 
-@app.route("/upload", methods=["POST"])
-def upload_file():
-    if "image" not in request.files:
-        return "No file uploaded", 400
+@app.route('/compression/video')
+def video_compression():
+    return render_template('video_compression.html')
 
-    file = request.files["image"]
-    if file.filename == "":
-        return "No file selected", 400
+@app.route('/compress/single', methods=['POST'])
+def compress_single():
+    file = request.files['image']
+    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    compressed_path = os.path.join(COMPRESSED_FOLDER, file.filename)
 
-    compression_level = int(request.form.get("quality", 40))
-    output_format = request.form.get("format", "JPEG")
+    file.save(file_path)
+    image = Image.open(file_path)
+    image.save(compressed_path, "JPEG", quality=50)
 
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-    file.save(filepath)
+    return jsonify({"success": True, "url": f"/download/{file.filename}"})
 
-    filename, ext = os.path.splitext(file.filename)
-    compressed_filename = f"{filename}_compressed.{output_format.lower()}"
-    compressed_path = os.path.join(app.config["COMPRESSED_FOLDER"], compressed_filename)
+@app.route('/compress/multiple', methods=['POST'])
+def compress_multiple():
+    files = request.files.getlist('images')
+    zip_path = os.path.join(COMPRESSED_FOLDER, "compressed_images.zip")
 
-    try:
-        image = Image.open(filepath)
+    with zipfile.ZipFile(zip_path, 'w') as zipf:
+        for file in files:
+            file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+            compressed_path = os.path.join(COMPRESSED_FOLDER, file.filename)
 
-        if output_format == "JPEG":
-            image = image.convert("RGB")  # Ensure JPEG compatibility
-            image.save(compressed_path, "JPEG", quality=compression_level)
-        elif output_format == "PNG":
-            image.save(compressed_path, "PNG", optimize=True, compress_level=int((100 - compression_level) / 10))
-        elif output_format == "WEBP":
-            image.save(compressed_path, "WEBP", quality=compression_level)
-        else:
-            return "Invalid format selected", 400
+            file.save(file_path)
+            image = Image.open(file_path)
+            image.save(compressed_path, "JPEG", quality=50)
+            zipf.write(compressed_path, file.filename)
 
-        return send_from_directory(app.config["COMPRESSED_FOLDER"], compressed_filename, as_attachment=True)
+    return jsonify({"success": True, "url": "/download/compressed_images.zip"})
 
-    except Exception as e:
-        return f"Compression error: {str(e)}", 500
+@app.route('/compress/video', methods=['POST'])
+def compress_video():
+    file = request.files['video']
+    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    compressed_path = os.path.join(COMPRESSED_FOLDER, file.filename)
 
+    file.save(file_path)
+    clip = VideoFileClip(file_path)
+    clip.write_videofile(compressed_path, bitrate="500k")
 
-if __name__ == "__main__":
+    return jsonify({"success": True, "url": f"/download/{file.filename}"})
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    return send_from_directory(COMPRESSED_FOLDER, filename)
+
+if __name__ == '__main__':
     app.run(debug=True)
