@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Single Image Compression{% endblock %}
+
+{% block content %}
+<section class="compression-section">
+    <h1>Single Image Compression</h1>
+    <p>Select an image to compress and download the optimized version.</p>
+
+    <form id="singleUploadForm" enctype="multipart/form-data">
+        <input type="file" id="singleImage" name="image" accept="image/*" required>
+        <button type="submit">Compress Image</button>
+    </form>
+
+    <div id="singleResult" class="result hidden">
+        <p>Compression successful! Download your image below:</p>
+        <a id="downloadSingle" href="#" download>Download Compressed Image</a>
+    </div>
+</section>
+{% endblock %}
