@@ -3,7 +3,7 @@ import os
 from PIL import Image
 import zipfile
 import cv2
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 
 app = Flask(__name__)
 
@@ -20,6 +20,10 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/compression')
+def compression():
+        return render_template('compression.html')
 
 @app.route('/compression/single')
 def single_compression():
