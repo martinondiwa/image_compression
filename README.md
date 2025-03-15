@@ -1,5 +1,3 @@
-# image_compression
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
