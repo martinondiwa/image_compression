@@ -1,7 +1,8 @@
+// compression app js codes 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Website Loaded Successfully!");
 
-    // Single Image Compression
+    // Single Image Compression with no quality loss
     document.getElementById("singleUploadForm")?.addEventListener("submit", function (e) {
         e.preventDefault();
         const formData = new FormData();
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error:", error));
     });
 
-    // Multiple Images Compression
+    // Multiple Images Compression with no quality loss
     document.getElementById("multiUploadForm")?.addEventListener("submit", function (e) {
         e.preventDefault();
         const formData = new FormData();

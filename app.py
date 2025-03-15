@@ -1,3 +1,5 @@
+# python code responsible for the image compression
+
 from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
 from PIL import Image
