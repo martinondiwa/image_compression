@@ -4,12 +4,39 @@
 {% block title %}Home - Image Compression{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <h1>Welcome to Image Compressor</h1>
-    <p>Efficiently compress your images and videos while maintaining quality!</p>
-    <button onclick="window.location.href='{{ url_for('compression') }}'">Compress Image</button>
-    <button onclick="window.location.href='{{ url_for('compress_video') }}'">Compress Video</button>
+ <header class="hero-section">
+        <h1>Optimize Your Images & Videos</h1>
+        <p>Compress your media files without compromising quality.</p>
+        <a href="{{ url_for('single_compression') }}" class="btn">Get Started</a>
+    </header>
 
-</section>
+    <section class="features">
+        <div class="feature">
+            <h2>Fast Compression</h2>
+            <p>Compress images and videos in seconds using our efficient algorithms.</p>
+        </div>
+        <div class="feature">
+            <h2>Quality Retention</h2>
+            <p>Our compression ensures high-quality output with reduced file size.</p>
+        </div>
+        <div class="feature">
+            <h2>Multiple Formats</h2>
+            <p>Supports PNG, JPEG, MP4, and other popular formats.</p>
+        </div>
+    </section>
+
+    <section class="compression-options">
+        <h2>Choose Your Compression Type</h2>
+        <ul>
+            <li><a href="{{ url_for('single_compression') }}">Single Image Compression</a></li>
+            <li><a href="{{ url_for('multiple_compression') }}">Multiple Image Compression</a></li>
+            <li><a href="{{ url_for('video_compression') }}">Video Compression</a></li>
+        </ul>
+    </section>
+
+    <section class="testimonial">
+        <h2>What Our Users Say</h2>
+        <p>"This tool saved me so much storage space while keeping my images clear!" - Jane Doe</p>
+    </section>
 {% endblock %}
 
