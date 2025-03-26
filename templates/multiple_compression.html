@@ -5,7 +5,7 @@
 {% block content %}
 <section class="compression-section">
     <h1>Multiple Image Compression</h1>
-    <p>Select multiple images to compress and download them in a ZIP file.</p>
+    <p>Select multiple images to compress and preview them before downloading.</p>
 
     <form id="multiUploadForm" enctype="multipart/form-data">
         <input type="file" id="multiImages" name="images" accept="image/*" multiple required>
@@ -18,13 +18,33 @@
         <button type="submit" class="btn">Compress Images</button>
     </form>
 
+    <div id="previewContainer"></div>
+
     <div id="multiResult" class="result hidden">
-        <p>Compression successful! Download your ZIP file below:</p>
-        <a id="downloadMulti" href="#" class="btn" download>Download Compressed Images</a>
+        <p>Compression successful! Download your images below:</p>
+        <div id="compressedImages"></div>
     </div>
 </section>
 
 <script>
+    document.getElementById("multiImages").addEventListener("change", function(event) {
+        let previewContainer = document.getElementById("previewContainer");
+        previewContainer.innerHTML = "";
+        let files = event.target.files;
+
+        Array.from(files).forEach(file => {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let img = document.createElement("img");
+                img.src = e.target.result;
+                img.style.width = "150px";
+                img.style.margin = "10px";
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
     document.getElementById("multiUploadForm").addEventListener("submit", async function(event) {
         event.preventDefault();
 
@@ -45,7 +65,27 @@
         let result = await response.json();
         if (result.success) {
             document.getElementById("multiResult").classList.remove("hidden");
-            document.getElementById("downloadMulti").href = result.url;
+            let compressedImagesDiv = document.getElementById("compressedImages");
+            compressedImagesDiv.innerHTML = "";
+
+            result.images.forEach(imageUrl => {
+                let img = document.createElement("img");
+                img.src = imageUrl;
+                img.style.width = "150px";
+                img.style.margin = "10px";
+
+                let downloadLink = document.createElement("a");
+                downloadLink.href = imageUrl;
+                downloadLink.download = imageUrl.split("/").pop();
+                downloadLink.textContent = "Download";
+                downloadLink.style.display = "block";
+
+                let container = document.createElement("div");
+                container.appendChild(img);
+                container.appendChild(downloadLink);
+
+                compressedImagesDiv.appendChild(container);
+            });
         } else {
             alert("Compression failed! Please try again.");
         }
