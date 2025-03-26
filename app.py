@@ -38,6 +38,10 @@ def multiple_compression():
 @app.route('/compression/video')
 def video_compression():
     return render_template('video_compression.html')
+    
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
 
 @app.route('/compress/single', methods=['POST'])
 def compress_single():
