@@ -1,4 +1,3 @@
-{#single image compression #}
 {% extends 'base.html' %}
 
 {% block title %}Single Image Compression{% endblock %}
@@ -9,13 +8,54 @@
     <p>Select an image to compress and download the optimized version.</p>
 
     <form id="singleUploadForm" enctype="multipart/form-data">
-        <input type="file" id="singleImage" name="image" accept="image/*" required>
-        <button type="submit">Compress Image</button>
+        <label for="singleImage" class="upload-area">
+            <input type="file" id="singleImage" name="image" accept="image/*" required>
+            <span>Click to upload an image</span>
+        </label>
+        <img id="previewImage" class="hidden" alt="Uploaded Image Preview">
+        <button type="submit" id="compressBtn">Compress Image</button>
     </form>
+
+    <div id="loading" class="hidden">
+        <div class="loader"></div>
+        <p>Compressing...</p>
+    </div>
 
     <div id="singleResult" class="result hidden">
         <p>Compression successful! Download your image below:</p>
-        <a id="downloadSingle" href="#" download>Download Compressed Image</a>
+        <a id="downloadSingle" href="#" download>
+            <button>Download Compressed Image</button>
+        </a>
     </div>
 </section>
+
+<link rel="stylesheet" href="styles.css">
+
+<script>
+    document.getElementById('singleImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const previewImage = document.getElementById('previewImage');
+                previewImage.src = e.target.result;
+                previewImage.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    document.getElementById('singleUploadForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        document.getElementById('loading').classList.remove('hidden'); 
+        document.getElementById('compressBtn').disabled = true;
+
+        setTimeout(() => { 
+            document.getElementById('loading').classList.add('hidden'); 
+            document.getElementById('singleResult').classList.remove('hidden'); 
+            document.getElementById('compressBtn').disabled = false;
+        }, 3000);
+    });
+</script>
+
 {% endblock %}
