@@ -1,1 +1,97 @@
+<<<<<<< HEAD
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Image Compression{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Image Compressor</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href
+="{{ url_for('about') }}">About Us</a></li>
+            <li><a href="{{ url_for('blog') }}">Blog</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+            <li class="dropdown">
+                <a href="{{ url_for('compression') }}">Compression ▼</a>
+                <div class="dropdown-menu">
+                    <a href="{{ url_for('single_compression') }}">Single Image Compression</a>
+                    <a href="{{ url_for('multiple_compression') }}">Multiple Image Compression</a>
+                    <a href="{{ url_for('video_compression') }}">Video Compression</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="hero-section">
+        <h1>Optimize Your Images & Videos</h1>
+        <p>Compress your media files without compromising quality.</p>
+        <a href="{{ url_for('single_compression') }}" class="btn">Get Started</a>
+    </header>
+
+    <section class="features">
+        <div class="feature">
+            <h2>Fast Compression</h2>
+            <p>Compress images and videos in seconds using our efficient algorithms.</p>
+        </div>
+        <div class="feature">
+            <h2>Quality Retention</h2>
+            <p>Our compression ensures high-quality output with reduced file size.</p>
+        </div>
+        <div class="feature">
+            <h2>Multiple Formats</h2>
+            <p>Supports PNG, JPEG, MP4, and other popular formats.</p>
+        </div>
+    </section>
+
+    <section class="compression-options">
+        <h2>Choose Your Compression Type</h2>
+        <ul>
+            <li><a href="{{ url_for('single_compression') }}">Single Image Compression</a></li>
+            <li><a href="{{ url_for('multiple_compression') }}">Multiple Image Compression</a></li>
+            <li><a href="{{ url_for('video_compression') }}">Video Compression</a></li>
+        </ul>
+    </section>
+
+    <section class="testimonial">
+        <h2>What Our Users Say</h2>
+        <p>"This tool saved me so much storage space while keeping my images clear!" - Jane Doe</p>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>About Us</h3>
+                <p>We provide top-notch image and video compression solutions, ensuring minimal loss of quality with maximum space savings.</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3>Follow Us</h3>
+                <p>Stay connected with us on social media:</p>
+                <a href="#">Facebook</a> |
+                <a href="#">Twitter</a> |
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Image Compressor. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+>>>>>>> cce07965867b42ff27fac4f62579f2d2b22d6c19
