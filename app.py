@@ -4,7 +4,7 @@ import os
 from PIL import Image
 import zipfile
 import cv2
-from moviepy.editor import VideoFileClip
+from moviepy import VideoFileClip
 
 app = Flask(__name__)
 
