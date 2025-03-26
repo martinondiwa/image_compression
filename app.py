@@ -51,7 +51,7 @@ def contact():
 @app.route('/compress', methods=['POST'])
 def compress_image():
     if 'image' not in request.files or 'quality' not in request.form:
-        return "Missing data", 400
+        return jsonify({"error": "Missing image or quality parameter"}), 400
 
     file = request.files['image']
     compression_level = int(request.form['quality'])  # Get user-selected compression level
@@ -59,28 +59,36 @@ def compress_image():
     try:
         img = Image.open(file)
 
-        # Convert image to RGB mode if it's not in a compressible format (e.g., PNG, TIFF)
+        # Convert PNG, TIFF, and other non-JPEG formats to RGB mode
         if img.mode in ("RGBA", "P"):
             img = img.convert("RGB")
 
-        # Define quality settings based on selection
-        quality_mapping = {
-            25: 25,  # High compression (smallest size)
-            50: 50,  # Medium compression (balanced)
-            75: 75   # Low compression (best quality)
-        }
-        quality = quality_mapping.get(compression_level, 50)  # Default to 50%
+        # Define compression quality mapping
+        quality_mapping = {25: 25, 50: 50, 75: 75}
+        quality = quality_mapping.get(compression_level, 50)  # Default 50%
 
-        # Save compressed image in memory
+        # Save the compressed image to memory
         img_io = io.BytesIO()
-        img.save(img_io, 'JPEG', quality=quality, optimize=True)
+        img.save(img_io, format="JPEG", quality=quality, optimize=True)
         img_io.seek(0)
 
-        return send_file(img_io, mimetype='image/jpeg', as_attachment=False)
-    
+        # Save the compressed image to a file
+        compressed_path = os.path.join(UPLOAD_FOLDER, "compressed_image.jpg")
+        img.save(compressed_path, "JPEG", quality=quality, optimize=True)
+
+        return jsonify({"compressed_url": f"/download?filename=compressed_image.jpg"})
+
     except Exception as e:
-        return str(e), 500
-        
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/download')
+def download_file():
+    filename = request.args.get('filename')
+    if not filename:
+        return "No file specified", 400
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    return send_file(file_path, as_attachment=True)
+    
 @app.route('/compress/multiple', methods=['POST'])
 def compress_multiple():
     files = request.files.getlist('images')
