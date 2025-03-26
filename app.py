@@ -1,12 +1,10 @@
-# python code responsible for the image compression
-
-from flask import Flask, render_template, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory, send_file
 import io
 import os
 from PIL import Image
 import zipfile
 import cv2
-from moviepy import VideoFileClip
+from moviepy.editor import VideoFileClip
 
 app = Flask(__name__)
 
@@ -26,7 +24,7 @@ def about():
 
 @app.route('/compression')
 def compression():
-        return render_template('compression.html')
+    return render_template('compression.html')
 
 @app.route('/compression/single')
 def single_compression():
@@ -39,7 +37,7 @@ def multiple_compression():
 @app.route('/compression/video')
 def video_compression():
     return render_template('video_compression.html')
-    
+
 @app.route('/blog')
 def blog():
     return render_template('blog.html')
@@ -47,7 +45,7 @@ def blog():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-    
+
 @app.route('/compress', methods=['POST'])
 def compress_image():
     if 'image' not in request.files or 'quality' not in request.form:
@@ -67,28 +65,30 @@ def compress_image():
         quality_mapping = {25: 25, 50: 50, 75: 75}
         quality = quality_mapping.get(compression_level, 50)  # Default 50%
 
-        # Save the compressed image to memory
-        img_io = io.BytesIO()
-        img.save(img_io, format="JPEG", quality=quality, optimize=True)
-        img_io.seek(0)
-
-        # Save the compressed image to a file
-        compressed_path = os.path.join(UPLOAD_FOLDER, "compressed_image.jpg")
+        # Save the compressed image
+        compressed_filename = "compressed_image.jpg"
+        compressed_path = os.path.join(COMPRESSED_FOLDER, compressed_filename)
         img.save(compressed_path, "JPEG", quality=quality, optimize=True)
 
-        return jsonify({"compressed_url": f"/download?filename=compressed_image.jpg"})
+        return jsonify({"compressed_url": f"/download/{compressed_filename}"})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# ✅ Renamed function to avoid conflict
 @app.route('/download')
-def download_file():
+def download_static_file():
     filename = request.args.get('filename')
     if not filename:
         return "No file specified", 400
-    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file_path = os.path.join(COMPRESSED_FOLDER, filename)
     return send_file(file_path, as_attachment=True)
-    
+
+# ✅ Keeps dynamic filename handling
+@app.route('/download/<filename>')
+def download_dynamic_file(filename):
+    return send_from_directory(COMPRESSED_FOLDER, filename, as_attachment=True)
+
 @app.route('/compress/multiple', methods=['POST'])
 def compress_multiple():
     files = request.files.getlist('images')
@@ -117,10 +117,6 @@ def compress_video():
     clip.write_videofile(compressed_path, bitrate="500k")
 
     return jsonify({"success": True, "url": f"/download/{file.filename}"})
-
-@app.route('/download/<filename>')
-def download_file(filename):
-    return send_from_directory(COMPRESSED_FOLDER, filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
