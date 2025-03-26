@@ -109,7 +109,7 @@ def compress_multiple():
             image.save(compressed_path, "JPEG", quality=quality, optimize=True)
             zipf.write(compressed_path, file.filename)
 
-    return jsonify({"success": True, "url": "/download/compressed_images.zip"}
+    return jsonify({"success": True, "url": "/download/compressed_images.zip"})
 
 @app.route('/compress/video', methods=['POST'])
 def compress_video():
