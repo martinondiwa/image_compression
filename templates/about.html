@@ -1,11 +1,32 @@
-{# this is about us page #}
 {% extends 'base.html' %}
 
 {% block title %}About Us{% endblock %}
 
 {% block content %}
-<section class="about-section">
-    <h1>About Our Company</h1>
-    <p>We specialize in image and video compression using advanced algorithms.</p>
+<section class="about-container">
+    <div class="about-card fade-in">
+        <h1>About Our Company</h1>
+        <p>We specialize in cutting-edge image and video compression using advanced AI-driven algorithms, ensuring high-quality results with minimal storage requirements.</p>
+    </div>
+
+    <div class="about-card fade-in">
+        <h2>Our Mission</h2>
+        <p>To revolutionize digital media by providing efficient and intelligent compression solutions that enhance storage, transmission, and accessibility.</p>
+    </div>
+
+    <div class="about-card fade-in">
+        <h2>Our Vision</h2>
+        <p>To be a global leader in AI-powered compression technology, optimizing digital experiences while reducing data costs and environmental impact.</p>
+    </div>
+
+    <div class="about-card fade-in">
+        <h2>Why Choose Us?</h2>
+        <ul>
+            <li>State-of-the-art AI compression technology</li>
+            <li>Superior quality with minimal data loss</li>
+            <li>Seamless integration with cloud platforms</li>
+            <li>Cost-effective and eco-friendly solutions</li>
+        </ul>
+    </div>
 </section>
 {% endblock %}
