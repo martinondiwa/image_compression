@@ -76,60 +76,6 @@
     </div>
 </section>
 
-<style>
-    .fade-in {
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-    }
-    .fade-in.animate-fade-in {
-        opacity: 1;
-    }
-    .animate-slide-in {
-        transform: translateY(50px);
-        opacity: 0;
-        transition: all 1s ease-in-out;
-    }
-    .animate-slide-in.active {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    .animate-zoom-in {
-        transform: scale(0.9);
-        opacity: 0;
-        transition: all 1s ease-in-out;
-    }
-    .animate-zoom-in.active {
-        transform: scale(1);
-        opacity: 1;
-    }
-</style>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let fadeElements = document.querySelectorAll(".fade-in");
-        let slideElements = document.querySelectorAll(".animate-slide-in");
-        let zoomElements = document.querySelectorAll(".animate-zoom-in");
-
-        function onScroll() {
-            fadeElements.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.classList.add("animate-fade-in");
-                }
-            });
-            slideElements.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.classList.add("active");
-                }
-            });
-            zoomElements.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.classList.add("active");
-                }
-            });
-        }
-
-        window.addEventListener("scroll", onScroll);
-        onScroll();
-    });
-</script>
+<link rel="stylesheet" href="/static/css/about.css">
+<script src="/static/js/about.js"></script>
 {% endblock %}
