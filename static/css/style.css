@@ -412,27 +412,6 @@ body {
     align-items: center;
 }
 
-.navbar .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar .nav-links li {
-    display: inline;
-}
-
-.navbar .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar .nav-links a:hover {
-    color: #ffcc00;
-}
-
 /* Hero Section */
 .hero-section {
     background: linear-gradient(135deg, #007acc, #005b99);
@@ -563,26 +542,6 @@ body {
     border-radius: 10px;
 }
 
-/* Footer */
-footer {
-    background: #007acc;
-    color: white;
-    text-align: center;
-    padding: 20px 10px;
-}
-
-.footer-section {
-    margin-bottom: 10px;
-}
-
-.footer-section a {
-    color: white;
-    text-decoration: none;
-}
-
-.footer-section a:hover {
-    text-decoration: underline;
-}
 
 /* Animations */
 @keyframes fadeIn {
