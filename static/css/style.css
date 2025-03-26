@@ -599,4 +599,70 @@ body {
     }
 }
 
+/* About Styling*/
+.about-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.about-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.about-card h1, .about-card h2 {
+    color: #007bff;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.about-card p, .about-card ul {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.about-card ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.fade-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Animation on Scroll */
+@media (prefers-reduced-motion: no-preference) {
+    .about-card {
+        will-change: opacity, transform;
+    }
+}
+
+/* JavaScript for Scroll Animation */
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".about-card");
+    
+    function fadeInOnScroll() {
+        cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                card.classList.add("fade-in");
+            }
+        });
+    }
+
+    window.addEventListener("scroll", fadeInOnScroll);
+    fadeInOnScroll(); // Trigger on page load
+});
+
+
 
