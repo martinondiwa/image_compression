@@ -854,18 +854,11 @@ ssssssssssss
 }
 
 fffffffffffffffffffffffffffffffff
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-}
-
-/* Compression Section */
 .compression-section {
     text-align: center;
     padding: 20px;
 }
 
-/* Layout Styling */
 .compression-container {
     display: flex;
     justify-content: space-between;
@@ -878,7 +871,6 @@ body {
     width: 45%;
 }
 
-/* Upload Area */
 .upload-area {
     display: flex;
     flex-direction: column;
