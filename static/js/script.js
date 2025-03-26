@@ -78,21 +78,22 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error:", error));
     });
 });
-/* JavaScript for About Section Scroll Animation */
+<script>
 document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".about-card");
-    
-    function fadeInOnScroll() {
+
+    function revealOnScroll() {
         cards.forEach(card => {
             const rect = card.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
+            if (rect.top < window.innerHeight * 0.9) {
                 card.classList.add("fade-in");
             }
         });
     }
 
-    window.addEventListener("scroll", fadeInOnScroll);
-    fadeInOnScroll(); // Trigger on page load
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll(); // Run on page load
 });
+</script>
 
 
