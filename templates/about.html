@@ -5,25 +5,25 @@
 {% block content %}
 <section class="about-container container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 about-card fade-in text-center animate-slide-in">
+        <div class="col-md-8 about-card text-center animate-slide-in">
             <h1>About Our Company</h1>
             <p>We are pioneers in AI-driven image and video compression, leveraging state-of-the-art technology to optimize storage and transmission without compromising quality. Our solutions empower businesses, content creators, and enterprises to manage digital assets more efficiently.</p>
         </div>
     </div>
 
     <div class="row mt-4 d-flex align-items-stretch">
-        <div class="col-md-6 about-card fade-in animate-fade-in text-center">
+        <div class="col-md-6 about-card text-center animate-fade-in">
             <h2>Our Mission</h2>
             <p>Our mission is to revolutionize digital media by delivering intelligent compression solutions that enhance accessibility, reduce storage costs, and improve transmission speeds, all while maintaining exceptional quality.</p>
         </div>
-        <div class="col-md-6 about-card fade-in animate-fade-in text-center">
+        <div class="col-md-6 about-card text-center animate-fade-in">
             <h2>Our Vision</h2>
             <p>We envision becoming a global leader in AI-powered compression technology, helping businesses and individuals optimize digital experiences, minimize data costs, and contribute to a sustainable digital future.</p>
         </div>
     </div>
 
     <div class="row justify-content-center mt-4">
-        <div class="col-md-8 about-card fade-in animate-slide-in">
+        <div class="col-md-8 about-card animate-slide-in">
             <h2>Why Choose Us?</h2>
             <ul>
                 <li>Cutting-edge AI compression technology for optimal efficiency</li>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="row mt-5">
-        <div class="col-md-6 about-card fade-in animate-zoom-in">
+        <div class="col-md-6 about-card animate-zoom-in">
             <h2>Our Values</h2>
             <ul>
                 <li>Innovation – Continuously evolving to bring cutting-edge solutions</li>
@@ -45,7 +45,7 @@
                 <li>Sustainability – Reducing data storage impact on the environment</li>
             </ul>
         </div>
-        <div class="col-md-6 about-card fade-in animate-zoom-in">
+        <div class="col-md-6 about-card animate-zoom-in">
             <h2>Get in Touch</h2>
             <p>Interested in learning more? Contact us for inquiries, collaborations, or support. We’re here to help you optimize your digital media experience.</p>
             <a href="/contact" class="btn btn-primary mt-2">Contact Us</a>
@@ -54,14 +54,19 @@
 </section>
 
 <style>
+    .about-card {
+        max-width: 100%;
+        opacity: 0;
+    }
+
     .animate-slide-in {
-        animation: slide-in 1s ease-in-out;
+        animation: slide-in 1s ease-in-out forwards;
     }
     .animate-fade-in {
-        animation: fade-in 1.5s ease-in;
+        animation: fade-in 1.5s ease-in forwards;
     }
     .animate-zoom-in {
-        animation: zoom-in 1s ease-in-out;
+        animation: zoom-in 1s ease-in-out forwards;
     }
 
     @keyframes slide-in {
@@ -77,4 +82,12 @@
         to { transform: scale(1); opacity: 1; }
     }
 </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll('.about-card');
+    cards.forEach(card => card.style.opacity = "1");
+});
+</script>
+
 {% endblock %}
