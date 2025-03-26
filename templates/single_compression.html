@@ -7,25 +7,32 @@
     <h1>Single Image Compression</h1>
     <p>Select an image to compress and download the optimized version.</p>
 
-    <form id="singleUploadForm" enctype="multipart/form-data">
-        <label for="singleImage" class="upload-area">
-            <input type="file" id="singleImage" name="image" accept="image/*" required>
-            <span>Click to upload an image</span>
-        </label>
-        <img id="previewImage" class="hidden" alt="Uploaded Image Preview">
-        <button type="submit" id="compressBtn">Compress Image</button>
-    </form>
+    <div class="compression-container">
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <form id="singleUploadForm" enctype="multipart/form-data">
+                <label for="singleImage" class="upload-area">
+                    <input type="file" id="singleImage" name="image" accept="image/*" required>
+                    <span>Click to upload an image</span>
+                </label>
+                <img id="previewImage" class="hidden" alt="Uploaded Image Preview">
+                <button type="submit" id="compressBtn">Compress Image</button>
+            </form>
 
-    <div id="loading" class="hidden">
-        <div class="loader"></div>
-        <p>Compressing...</p>
-    </div>
+            <div id="loading" class="hidden">
+                <div class="loader"></div>
+                <p>Compressing...</p>
+            </div>
+        </div>
 
-    <div id="singleResult" class="result hidden">
-        <p>Compression successful! Download your image below:</p>
-        <a id="downloadSingle" href="#" download>
-            <button>Download Compressed Image</button>
-        </a>
+        <!-- Compressed Image Section -->
+        <div class="result-section hidden" id="singleResult">
+            <h3>Compressed Image</h3>
+            <img id="compressedImage" class="hidden" alt="Compressed Image">
+            <a id="downloadSingle" href="#" download>
+                <button>Download Compressed Image</button>
+            </a>
+        </div>
     </div>
 </section>
 
@@ -53,6 +60,12 @@
         setTimeout(() => { 
             document.getElementById('loading').classList.add('hidden'); 
             document.getElementById('singleResult').classList.remove('hidden'); 
+
+            // Simulating compressed image (Replace with actual compressed image URL)
+            document.getElementById('compressedImage').src = document.getElementById('previewImage').src;
+            document.getElementById('compressedImage').classList.remove('hidden');
+
+            document.getElementById('downloadSingle').href = document.getElementById('compressedImage').src;
             document.getElementById('compressBtn').disabled = false;
         }, 3000);
     });
