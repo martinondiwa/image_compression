@@ -11,12 +11,12 @@
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-md-6 about-card fade-in animate-fade-in">
+    <div class="row mt-4 d-flex align-items-stretch">
+        <div class="col-md-6 about-card fade-in animate-fade-in text-center">
             <h2>Our Mission</h2>
             <p>Our mission is to revolutionize digital media by delivering intelligent compression solutions that enhance accessibility, reduce storage costs, and improve transmission speeds, all while maintaining exceptional quality.</p>
         </div>
-        <div class="col-md-6 about-card fade-in animate-fade-in">
+        <div class="col-md-6 about-card fade-in animate-fade-in text-center">
             <h2>Our Vision</h2>
             <p>We envision becoming a global leader in AI-powered compression technology, helping businesses and individuals optimize digital experiences, minimize data costs, and contribute to a sustainable digital future.</p>
         </div>
@@ -33,29 +33,6 @@
                 <li>Reliable customer support and continuous innovation</li>
             </ul>
         </div>
-    </div>
-
-    <div id="teamCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="col-md-12 about-card fade-in text-center">
-                    <h2>Our Team</h2>
-                    <p>We are a team of passionate AI researchers, software engineers, and digital media experts committed to pushing the boundaries of compression technology.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="col-md-12 about-card fade-in text-center">
-                    <h2>Our Experts</h2>
-                    <p>Meet our experts who bring years of experience in AI, data science, and digital transformation.</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#teamCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#teamCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
     </div>
 
     <div class="row mt-5">
@@ -76,6 +53,28 @@
     </div>
 </section>
 
-<link rel="stylesheet" href="/static/css/about.css">
-<script src="/static/js/about.js"></script>
+<style>
+    .animate-slide-in {
+        animation: slide-in 1s ease-in-out;
+    }
+    .animate-fade-in {
+        animation: fade-in 1.5s ease-in;
+    }
+    .animate-zoom-in {
+        animation: zoom-in 1s ease-in-out;
+    }
+
+    @keyframes slide-in {
+        from { transform: translateX(-50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes zoom-in {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+</style>
 {% endblock %}
