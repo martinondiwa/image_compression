@@ -1,42 +1,64 @@
-{#Home  Page#}
+
 {% extends 'base.html' %}
 
 {% block title %}Home - Image Compression{% endblock %}
 
 {% block content %}
- <header class="hero-section">
+
+<!-- Hero Section with Animated Background -->
+<header class="hero-section">
+    <div class="hero-content">
         <h1>Optimize Your Images & Videos</h1>
         <p>Compress your media files without compromising quality.</p>
         <a href="{{ url_for('single_compression') }}" class="btn">Get Started</a>
-    </header>
+    </div>
+</header>
 
-    <section class="features">
-        <div class="feature">
-            <h2>Fast Compression</h2>
-            <p>Compress images and videos in seconds using our efficient algorithms.</p>
-        </div>
-        <div class="feature">
-            <h2>Quality Retention</h2>
-            <p>Our compression ensures high-quality output with reduced file size.</p>
-        </div>
-        <div class="feature">
-            <h2>Multiple Formats</h2>
-            <p>Supports PNG, JPEG, MP4, and other popular formats.</p>
-        </div>
-    </section>
+<!-- Features Section with Animations -->
+<section class="features">
+    <div class="feature fade-in">
+        <h2>🚀 Fast Compression</h2>
+        <p>Compress images and videos in seconds using our efficient algorithms.</p>
+    </div>
+    <div class="feature fade-in delay-1">
+        <h2>📸 Quality Retention</h2>
+        <p>Our compression ensures high-quality output with reduced file size.</p>
+    </div>
+    <div class="feature fade-in delay-2">
+        <h2>📂 Multiple Formats</h2>
+        <p>Supports PNG, JPEG, MP4, and other popular formats.</p>
+    </div>
+</section>
 
-    <section class="compression-options">
-        <h2>Choose Your Compression Type</h2>
-        <ul>
-            <li><a href="{{ url_for('single_compression') }}">Single Image Compression</a></li>
-            <li><a href="{{ url_for('multiple_compression') }}">Multiple Image Compression</a></li>
-            <li><a href="{{ url_for('video_compression') }}">Video Compression</a></li>
-        </ul>
-    </section>
+<!-- Image Compression Carousel -->
+<section class="carousel-section">
+    <h2>How It Works</h2>
+    <div class="carousel">
+        <div class="carousel-track">
+            <img src="{{ url_for('static', filename='images/step1.jpg') }}" alt="Step 1: Upload Image">
+            <img src="{{ url_for('static', filename='images/step2.jpg') }}" alt="Step 2: Select Compression">
+            <img src="{{ url_for('static', filename='images/step3.jpg') }}" alt="Step 3: Download Output">
+        </div>
+    </div>
+</section>
 
-    <section class="testimonial">
-        <h2>What Our Users Say</h2>
-        <p>"This tool saved me so much storage space while keeping my images clear!" - Jane Doe</p>
-    </section>
+<!-- Compression Options with Hover Effects -->
+<section class="compression-options">
+    <h2>Choose Your Compression Type</h2>
+    <ul>
+        <li><a href="{{ url_for('single_compression') }}" class="hover-effect">Single Image Compression</a></li>
+        <li><a href="{{ url_for('multiple_compression') }}" class="hover-effect">Multiple Image Compression</a></li>
+        <li><a href="{{ url_for('video_compression') }}" class="hover-effect">Video Compression</a></li>
+    </ul>
+</section>
+
+<!-- Testimonial Section with Slide-in Animation -->
+<section class="testimonial slide-in">
+    <h2>What Our Users Say</h2>
+    <p>"This tool saved me so much storage space while keeping my images clear!" - Jane Doe</p>
+</section>
+
 {% endblock %}
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
