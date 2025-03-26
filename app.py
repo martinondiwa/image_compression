@@ -92,6 +92,11 @@ def download_dynamic_file(filename):
 @app.route('/compress/multiple', methods=['POST'])
 def compress_multiple():
     files = request.files.getlist('images')
+    compression_level = int(request.form.get('quality', 50))  # Default to 50%
+
+    quality_mapping = {25: 25, 50: 50, 75: 75}
+    quality = quality_mapping.get(compression_level, 50)
+
     zip_path = os.path.join(COMPRESSED_FOLDER, "compressed_images.zip")
 
     with zipfile.ZipFile(zip_path, 'w') as zipf:
@@ -101,10 +106,10 @@ def compress_multiple():
 
             file.save(file_path)
             image = Image.open(file_path)
-            image.save(compressed_path, "JPEG", quality=50)
+            image.save(compressed_path, "JPEG", quality=quality, optimize=True)
             zipf.write(compressed_path, file.filename)
 
-    return jsonify({"success": True, "url": "/download/compressed_images.zip"})
+    return jsonify({"success": True, "url": "/download/compressed_images.zip"}
 
 @app.route('/compress/video', methods=['POST'])
 def compress_video():
