@@ -5,20 +5,32 @@
 {% block content %}
 <section class="compression-section">
     <h1>Single Image Compression</h1>
-    <p>Select an image to compress and download the optimized version.</p>
+    <p>Select an image to compress and choose compression level.</p>
 
     <div class="compression-container">
         <!-- Upload Section -->
         <div class="upload-section">
-            <form id="singleUploadForm" enctype="multipart/form-data">
+            <form id="singleUploadForm">
                 <label for="singleImage" class="upload-area">
                     <input type="file" id="singleImage" name="image" accept="image/*" required>
                     <span>Click to upload an image</span>
                 </label>
+
+                <!-- Preview uploaded image -->
                 <img id="previewImage" class="hidden" alt="Uploaded Image Preview">
+
+                <!-- Compression level selection -->
+                <label for="compressionLevel">Select Compression Level:</label>
+                <select id="compressionLevel">
+                    <option value="25">High Compression (25%)</option>
+                    <option value="50" selected>Medium Compression (50%)</option>
+                    <option value="75">Low Compression (75%)</option>
+                </select>
+
                 <button type="submit" id="compressBtn">Compress Image</button>
             </form>
 
+            <!-- Loading Animation -->
             <div id="loading" class="hidden">
                 <div class="loader"></div>
                 <p>Compressing...</p>
@@ -44,30 +56,41 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                const previewImage = document.getElementById('previewImage');
-                previewImage.src = e.target.result;
-                previewImage.classList.remove('hidden');
+                document.getElementById('previewImage').src = e.target.result;
+                document.getElementById('previewImage').classList.remove('hidden');
             };
             reader.readAsDataURL(file);
         }
     });
 
-    document.getElementById('singleUploadForm').addEventListener('submit', function (event) {
+    document.getElementById('singleUploadForm').addEventListener('submit', async function (event) {
         event.preventDefault();
         document.getElementById('loading').classList.remove('hidden'); 
         document.getElementById('compressBtn').disabled = true;
 
-        setTimeout(() => { 
+        let formData = new FormData();
+        formData.append("image", document.getElementById("singleImage").files[0]);
+        formData.append("quality", document.getElementById("compressionLevel").value);
+
+        try {
+            let response = await fetch("/compress", {
+                method: "POST",
+                body: formData
+            });
+
+            let blob = await response.blob();
+            let compressedUrl = URL.createObjectURL(blob);
+
             document.getElementById('loading').classList.add('hidden'); 
             document.getElementById('singleResult').classList.remove('hidden'); 
-
-            // Simulating compressed image (Replace with actual compressed image URL)
-            document.getElementById('compressedImage').src = document.getElementById('previewImage').src;
+            document.getElementById('compressedImage').src = compressedUrl;
             document.getElementById('compressedImage').classList.remove('hidden');
+            document.getElementById('downloadSingle').href = compressedUrl;
+        } catch (error) {
+            console.error("Compression failed:", error);
+        }
 
-            document.getElementById('downloadSingle').href = document.getElementById('compressedImage').src;
-            document.getElementById('compressBtn').disabled = false;
-        }, 3000);
+        document.getElementById('compressBtn').disabled = false;
     });
 </script>
 
