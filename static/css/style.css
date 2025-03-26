@@ -854,11 +854,18 @@ ssssssssssss
 }
 
 fffffffffffffffffffffffffffffffff
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Compression Section */
 .compression-section {
     text-align: center;
     padding: 20px;
 }
 
+/* Layout Styling */
 .compression-container {
     display: flex;
     justify-content: space-between;
@@ -871,6 +878,7 @@ fffffffffffffffffffffffffffffffff
     width: 45%;
 }
 
+/* Upload Area */
 .upload-area {
     display: flex;
     flex-direction: column;
@@ -887,17 +895,21 @@ fffffffffffffffffffffffffffffffff
     display: none;
 }
 
+/* Image Display */
 #previewImage, #compressedImage {
     max-width: 100%;
     max-height: 300px;
     margin-top: 10px;
     display: block;
+    object-fit: cover;
 }
 
+/* Hidden Class */
 .hidden {
     display: none;
 }
 
+/* Buttons */
 button {
     margin-top: 10px;
     padding: 10px 20px;
@@ -913,6 +925,7 @@ button:hover {
     background: #0056b3;
 }
 
+/* Loading Animation */
 #loading {
     text-align: center;
     margin-top: 20px;
