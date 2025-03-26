@@ -85,7 +85,7 @@ p {
     text-align: center;
     color: white;
     padding: 100px 20px;
-    background: url('/static/images/your-background.jpg') no-repeat center center/cover;
+    background: url('/static/images/"C:\Users\user\Downloads\WhatsApp Image 2025-03-24 at 2.27.18 PM.jpeg"') no-repeat center center/cover;
     animation: breeze 10s infinite linear alternate;
     border-radius: 10px;
 }
