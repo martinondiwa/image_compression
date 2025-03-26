@@ -1,21 +1,54 @@
-{# Multiple compression#}
 {% extends 'base.html' %}
 
 {% block title %}Multiple Image Compression{% endblock %}
 
 {% block content %}
 <section class="compression-section">
-    <h1>Multiple Images Compression</h1>
+    <h1>Multiple Image Compression</h1>
     <p>Select multiple images to compress and download them in a ZIP file.</p>
 
     <form id="multiUploadForm" enctype="multipart/form-data">
         <input type="file" id="multiImages" name="images" accept="image/*" multiple required>
-        <button type="submit">Compress Images</button>
+        <label for="multiQuality">Select Compression Quality:</label>
+        <select id="multiQuality" name="quality">
+            <option value="25">High Compression (25%)</option>
+            <option value="50" selected>Medium Compression (50%)</option>
+            <option value="75">Low Compression (75%)</option>
+        </select>
+        <button type="submit" class="btn">Compress Images</button>
     </form>
 
     <div id="multiResult" class="result hidden">
         <p>Compression successful! Download your ZIP file below:</p>
-        <a id="downloadMulti" href="#" download>Download Compressed Images</a>
+        <a id="downloadMulti" href="#" class="btn" download>Download Compressed Images</a>
     </div>
 </section>
+
+<script>
+    document.getElementById("multiUploadForm").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        let formData = new FormData();
+        let files = document.getElementById("multiImages").files;
+        let quality = document.getElementById("multiQuality").value;
+
+        for (let file of files) {
+            formData.append("images", file);
+        }
+        formData.append("quality", quality);
+
+        let response = await fetch("/compress/multiple", {
+            method: "POST",
+            body: formData
+        });
+
+        let result = await response.json();
+        if (result.success) {
+            document.getElementById("multiResult").classList.remove("hidden");
+            document.getElementById("downloadMulti").href = result.url;
+        } else {
+            alert("Compression failed! Please try again.");
+        }
+    });
+</script>
 {% endblock %}
