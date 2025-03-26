@@ -89,28 +89,33 @@ def download_static_file():
 def download_dynamic_file(filename):
     return send_from_directory(COMPRESSED_FOLDER, filename, as_attachment=True)
 
-@app.route('/compress/multiple', methods=['POST'])
+@app.route("/compress/multiple", methods=["POST"])
 def compress_multiple():
-    files = request.files.getlist('images')
-    compression_level = int(request.form.get('quality', 50))  # Default to 50%
+    files = request.files.getlist("images")
+    compression_level = int(request.form.get("quality", 50))  # Default to 50%
 
     quality_mapping = {25: 25, 50: 50, 75: 75}
     quality = quality_mapping.get(compression_level, 50)
 
-    zip_path = os.path.join(COMPRESSED_FOLDER, "compressed_images.zip")
+    compressed_image_urls = []
 
-    with zipfile.ZipFile(zip_path, 'w') as zipf:
-        for file in files:
-            file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-            compressed_path = os.path.join(COMPRESSED_FOLDER, file.filename)
+    for file in files:
+        filename = file.filename
+        file_path = os.path.join(UPLOAD_FOLDER, filename)
+        compressed_path = os.path.join(COMPRESSED_FOLDER, filename)
 
-            file.save(file_path)
-            image = Image.open(file_path)
-            image.save(compressed_path, "JPEG", quality=quality, optimize=True)
-            zipf.write(compressed_path, file.filename)
+        file.save(file_path)
+        image = Image.open(file_path)
+        image.save(compressed_path, "JPEG", quality=quality, optimize=True)
 
-    return jsonify({"success": True, "url": "/download/compressed_images.zip"})
+        compressed_image_urls.append(f"/compressed/{filename}")
 
+    return jsonify({"success": True, "images": compressed_image_urls})
+
+@app.route("/compressed/<filename>")
+def get_compressed_image(filename):
+    return send_from_directory(COMPRESSED_FOLDER, filename)
+    
 @app.route('/compress/video', methods=['POST'])
 def compress_video():
     file = request.files['video']
