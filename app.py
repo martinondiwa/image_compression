@@ -47,18 +47,39 @@ def blog():
 def contact():
     return render_template('contact.html')
     
-@app.route('/compress/single', methods=['POST'])
-def compress_single():
+@app.route('/compress', methods=['POST'])
+def compress_image():
+    if 'image' not in request.files or 'quality' not in request.form:
+        return "Missing data", 400
+
     file = request.files['image']
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    compressed_path = os.path.join(COMPRESSED_FOLDER, file.filename)
+    compression_level = int(request.form['quality'])  # Get user-selected compression level
 
-    file.save(file_path)
-    image = Image.open(file_path)
-    image.save(compressed_path, "JPEG", quality=50)
+    try:
+        img = Image.open(file)
 
-    return jsonify({"success": True, "url": f"/download/{file.filename}"})
+        # Convert image to RGB mode if it's not in a compressible format (e.g., PNG, TIFF)
+        if img.mode in ("RGBA", "P"):
+            img = img.convert("RGB")
 
+        # Define quality settings based on selection
+        quality_mapping = {
+            25: 25,  # High compression (smallest size)
+            50: 50,  # Medium compression (balanced)
+            75: 75   # Low compression (best quality)
+        }
+        quality = quality_mapping.get(compression_level, 50)  # Default to 50%
+
+        # Save compressed image in memory
+        img_io = io.BytesIO()
+        img.save(img_io, 'JPEG', quality=quality, optimize=True)
+        img_io.seek(0)
+
+        return send_file(img_io, mimetype='image/jpeg', as_attachment=False)
+    
+    except Exception as e:
+        return str(e), 500
+        
 @app.route('/compress/multiple', methods=['POST'])
 def compress_multiple():
     files = request.files.getlist('images')
