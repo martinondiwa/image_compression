@@ -80,6 +80,50 @@ p {
     margin-bottom: 20px;
     opacity: 0.8;
 }
+.hero-content {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 100px 20px;
+    background: url('/static/images/your-background.jpg') no-repeat center center/cover;
+    animation: breeze 10s infinite linear alternate;
+    border-radius: 10px;
+}
+
+/* Animate Background */
+@keyframes breeze {
+    0% {
+        background-position: center top;
+    }
+    100% {
+        background-position: center bottom;
+    }
+}
+
+/* Add some shadow and spacing */
+.hero-content h1 {
+    font-size: 2.5em;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.hero-content .btn {
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    transition: all 0.3s ease-in-out;
+}
+
+.hero-content .btn:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+}
 
 /* =============================
    Form Styling
