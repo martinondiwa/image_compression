@@ -68,6 +68,7 @@ section {
 
 h1 {
     font-size: 2.5rem;
+    color: white;
     background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -647,22 +648,6 @@ body {
     }
 }
 
-/* JavaScript for Scroll Animation */
-document.addEventListener("DOMContentLoaded", function () {
-    const cards = document.querySelectorAll(".about-card");
-    
-    function fadeInOnScroll() {
-        cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                card.classList.add("fade-in");
-            }
-        });
-    }
-
-    window.addEventListener("scroll", fadeInOnScroll);
-    fadeInOnScroll(); // Trigger on page load
-});
 
 
 
