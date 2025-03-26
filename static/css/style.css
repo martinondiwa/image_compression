@@ -45,6 +45,18 @@ body {
 .navbar a:hover {
     color: #ffcc00;
 }
+.navbar {
+    background-color: #222; /* Dark background */
+    padding: 15px;
+}
+
+.navbar a {
+    color: white !important;
+}
+
+.navbar a:hover {
+    color: #f8f9fa;
+}
 
 /* =============================
    Section Styles
