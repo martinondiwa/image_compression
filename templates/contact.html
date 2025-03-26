@@ -3,33 +3,48 @@
 {% block title %}Contact Us - Image Compression{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
 <header class="contact-header">
-    <h1>Contact Us</h1>
-    <p>We would love to hear from you! Get in touch with us through any of the following channels.</p>
+    <h1>Get in Touch</h1>
+    <p>Have questions? Need assistance? We're here to help!</p>
 </header>
 
-<section class="contact-info">
-    <div class="contact-details">
-        <h2>Our Office</h2>
-        <p><strong>Address:</strong> 123 Image Street, Tech City, XYZ</p>
-        <p><strong>Phone:</strong> +123 456 7890</p>
-        <p><strong>Email:</strong> support@imagecompressor.com</p>
+<section class="contact-container">
+    <div class="contact-box">
+        <h2>Contact Information</h2>
+        <p><strong>📍 Address:</strong> 123 Image Street, Tech City, XYZ</p>
+        <p><strong>📞 Phone:</strong> +123 456 7890</p>
+        <p><strong>✉️ Email:</strong> support@imagecompressor.com</p>
+    </div>
+
+    <div class="contact-box">
+        <h2>Send Us a Message</h2>
+        <form action="/submit_contact" method="POST">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
     </div>
 </section>
 
-<section class="contact-form">
-    <h2>Send Us a Message</h2>
-    <form action="/submit_contact" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        
-        <button type="submit">Send Message</button>
-    </form>
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+        <h3>How can I compress images for free?</h3>
+        <p>Our tool allows you to upload and compress images instantly without losing quality.</p>
+    </div>
+    <div class="faq">
+        <h3>Is there a file size limit?</h3>
+        <p>Yes, you can upload images up to 10MB for compression.</p>
+    </div>
 </section>
+
 {% endblock %}
