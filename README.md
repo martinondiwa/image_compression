@@ -23,6 +23,8 @@ To install and run the project locally, follow these steps:
 Clone the Repository:
 
 git clone https://github.com/martinondiwa/image_compression.git
+
+
 [Click here to visit the GitHub repository](https://github.com/martinondiwa/image_compression.git).
 
 # Navigate to the Project Directory:
