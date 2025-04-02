@@ -14,7 +14,7 @@ Final Project Blog Article: [Insert Link Here]
 
 GitHub Repository: GitHub Repository
 
-Author(s) LinkedIn: [Insert LinkedIn Profiles]
+Author(s) LinkedIn: [https://x.com/Wycliffe33?t=nnZACkKcShPJvQ7ytyF4gQ&s=09]
 
 Installation
 
@@ -25,21 +25,21 @@ Clone the Repository:
 git clone https://github.com/martinondiwa/image_compression.git
 [Click here to visit the GitHub repository](https://github.com/martinondiwa/image_compression.git).
 
-Navigate to the Project Directory:
+# Navigate to the Project Directory:
 
 cd image_compression
 
-Install Dependencies:
+# Install Dependencies:
 
 npm install  # If using Node.js
 pip install -r requirements.txt  # If using Python
 
-Run the Application:
+# Run the Application:
 
 npm start  # If using Node.js
 python app.py  # If using Python
 
-Usage
+# Usage
 
 Upload an Image via the web interface.
 
@@ -49,7 +49,7 @@ Process the Image and view the compression results.
 
 Download the Compressed Image.
 
-Contributing
+# Contributing
 
 Contributions are welcome! To contribute:
 
@@ -61,7 +61,7 @@ Make changes and commit them.
 
 Open a pull request for review.
 
-Related Projects
+# Related Projects
 
 Image Processing Tools
 
